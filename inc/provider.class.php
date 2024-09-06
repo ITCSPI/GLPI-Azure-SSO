@@ -1089,6 +1089,11 @@ class PluginSinglesignonProvider extends CommonDBTM
         if (isset($_SERVER['PATH_INFO'])) {
             $currentURL .= $_SERVER['PATH_INFO'];
         }
+
+        if (isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING'])) {
+            $currentURL .= '?' . $_SERVER['QUERY_STRING'];
+        }
+        
         return $currentURL;
     }
 
