@@ -62,7 +62,7 @@ class PluginSinglesignonToolbox
 
    public static function getCallbackParameters($name = null)
    {
-      $data = $_GET;
+      print $data = $_GET;
 
       if ($name !== null) {
          return isset($data[$name]) ? $data[$name] : null;
