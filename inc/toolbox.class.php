@@ -41,7 +41,7 @@ class PluginSinglesignonToolbox
 
       $url = $CFG_GLPI['root_doc'] . '/plugins/singlesignon/front/callback.php';
 
-      $url .= "/provider/" . $id;
+      $url .= "?provider=" . $id;
 
       if (!empty($query)) {
          $_SESSION['redirect'] = $query['redirect'];
@@ -62,39 +62,10 @@ class PluginSinglesignonToolbox
 
    public static function getCallbackParameters($name = null)
    {
-      $data = [];
+      $data = $_GET;
 
-      if (isset($_SERVER['PATH_INFO'])) {
-         $path_info = trim($_SERVER['PATH_INFO'], '/');
-
-         $parts = explode('/', $path_info);
-
-         $key = null;
-
-         foreach ($parts as $part) {
-
-            if ($key === null) {
-               $key = $part;
-            } else {
-               if ($key === "provider" || $key === "test") {
-                  $part = intval($part);
-               } else {
-                  $tmp = base64_decode($part);
-                  parse_str($tmp, $part);
-               }
-
-               if ($key === $name) {
-                  return $part;
-               }
-
-               $data[$key] = $part;
-               $key = null;
-            }
-         }
-      }
-
-      if (!isset($data[$name])) {
-         return null;
+      if ($name !== null) {
+         return isset($data[$name]) ? $data[$name] : null;
       }
 
       return $data;
