@@ -61,7 +61,7 @@ function plugin_singlesignon_display_login()
       echo '<div class="singlesignon-box">';
       echo implode(" \n", $html);
       // echo PluginSinglesignonToolbox::renderButton('#', ['name' => __('GLPI')], 'vsubmit old-login');
-      echo '<span><a href="#" class="singlesignon vsubmit vsubmit old-login col-md-12">Connexion clients</a></span>';
+      echo '<span><a href="#" class="singlesignon vsubmit vsubmit old-login col-md-12">Autenticación GLPi</a></span>';
       echo '</div>';
 ?>
       <style>

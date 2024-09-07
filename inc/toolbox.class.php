@@ -170,8 +170,7 @@ class PluginSinglesignonToolbox
          $btn .= ' ';
       }
 
-      // $btn .= sprintf(__sso('Login with %s'), $data['name']);
-      $btn .= 'Connexion collaborateurs Isia';
+      $btn .= 'Login SSO';
       $btn .= '</a></span>';
       return $btn;
    }
