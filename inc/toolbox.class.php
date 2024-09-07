@@ -62,13 +62,13 @@ class PluginSinglesignonToolbox
 
    public static function getCallbackParameters($name = null)
    {
-      $data = $_GET;
+      $providerId = 0;
 
-      if ($name !== null) {
-         return isset($data[$name]) ? $data[$name] : null;
+      if (isset($_GET['provider'])) {
+         $providerId = $_GET['provider'];
       }
 
-      return $data;
+      return $providerId;
    }
 
    static public function startsWith($haystack, $needle)

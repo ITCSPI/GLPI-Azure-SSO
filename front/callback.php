@@ -35,7 +35,6 @@ error_reporting(E_ALL);
 include '../../../inc/includes.php';
 
 $provider_id = PluginSinglesignonToolbox::getCallbackParameters('provider');
-$provider_id = 1;
 
 if (!$provider_id) {
     Html::displayErrorAndDie(__sso('Provider not defined.'), false);
@@ -53,9 +52,7 @@ if (!$signon_provider->fields['is_active']) {
 
 $signon_provider->checkAuthorization();
 
-$test = PluginSinglesignonToolbox::getCallbackParameters('test');
-
-if ($test) {
+if ($provider_id == 0) {
     $signon_provider->debug = true;
     Html::nullHeader('Login', $CFG_GLPI['root_doc'] . '/index.php');
     echo '<div class="left spaced">';

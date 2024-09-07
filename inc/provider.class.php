@@ -947,6 +947,12 @@ class PluginSinglesignonProvider extends CommonDBTM
         return $value;
     }
 
+    public function getProviderId(){
+        $fields = $this->fields;
+        $providerId = $fields['id'] ? $fields['id'] : 0;
+        return $providerId;
+    }
+
     public function getScope()
     {
         $type = $this->getClientType();
@@ -1090,10 +1096,6 @@ class PluginSinglesignonProvider extends CommonDBTM
             $currentURL .= $_SERVER['PATH_INFO'];
         }
 
-        if (isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING'])) {
-            $currentURL .= '?' . $_SERVER['QUERY_STRING'];
-        }
-        
         return $currentURL;
     }
 
@@ -1113,26 +1115,6 @@ class PluginSinglesignonProvider extends CommonDBTM
 
         if (!isset($_GET['code'])) {
             $state = Session::getNewCSRFToken();
-
-            // if (isset($_SESSION['redirect'])) {
-            //     $redirects = explode('?', $_SESSION['redirect']);
-            //     $_redirect = '';
-            //     $i = 0;
-
-            //     foreach ($redirects as $redirect) {
-            //         if (!preg_match('/error/i', $redirect)) {
-            //             if ($i == 0) {
-            //                 $_redirect = $redirect . '?';
-            //             } else {
-            //                 $_redirect .= $redirect . '&';
-            //             }
-            //         }
-            //         $i++;
-            //     }
-
-            //     $state .= ',redirect=' . $_redirect;
-            // }
-
             if (isset($_SESSION['redirect'])) {
                 $state .= '&redirect=' . $_SESSION['redirect'];
             }
@@ -1142,7 +1124,7 @@ class PluginSinglesignonProvider extends CommonDBTM
                 'state' => $state,
                 'response_type' => 'code',
                 'approval_prompt' => 'auto',
-                'redirect_uri' => $this->getCurrentURL(),
+                'redirect_uri' => $this->getCurrentURL().'?provider='.$this->getProviderId(),
             ];
 
             $params = Plugin::doHookFunction('sso:authorize_params', $params);
@@ -1196,7 +1178,7 @@ class PluginSinglesignonProvider extends CommonDBTM
         $params = [
             'client_id' => $this->getClientId(),
             'client_secret' => $this->getClientSecret(),
-            'redirect_uri' => $this->getCurrentURL(),
+            'redirect_uri' => $this->getCurrentURL().'?provider='.$this->getProviderId(),
             'grant_type' => 'authorization_code',
             'code' => $this->_code,
         ];
@@ -1267,7 +1249,7 @@ class PluginSinglesignonProvider extends CommonDBTM
         ]);
 
         if ($this->debug) {
-            print_r("\ngetResourceOwner:\n");
+           print_r("\ngetResourceOwner:\n");
         }
 
         try {
@@ -1278,6 +1260,7 @@ class PluginSinglesignonProvider extends CommonDBTM
             $this->_resource_owner = $data;
         } catch (\Exception $ex) {
             if ($this->debug) {
+                print "error 2";
                 print_r($content);
             }
             return false;
