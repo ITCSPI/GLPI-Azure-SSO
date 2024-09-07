@@ -1109,26 +1109,6 @@ class PluginSinglesignonProvider extends CommonDBTM
 
         if (!isset($_GET['code'])) {
             $state = Session::getNewCSRFToken();
-
-            // if (isset($_SESSION['redirect'])) {
-            //     $redirects = explode('?', $_SESSION['redirect']);
-            //     $_redirect = '';
-            //     $i = 0;
-
-            //     foreach ($redirects as $redirect) {
-            //         if (!preg_match('/error/i', $redirect)) {
-            //             if ($i == 0) {
-            //                 $_redirect = $redirect . '?';
-            //             } else {
-            //                 $_redirect .= $redirect . '&';
-            //             }
-            //         }
-            //         $i++;
-            //     }
-
-            //     $state .= ',redirect=' . $_redirect;
-            // }
-
             if (isset($_SESSION['redirect'])) {
                 $state .= '&redirect=' . $_SESSION['redirect'];
             }
@@ -1138,7 +1118,7 @@ class PluginSinglesignonProvider extends CommonDBTM
                 'state' => $state,
                 'response_type' => 'code',
                 'approval_prompt' => 'auto',
-                'redirect_uri' => $this->getCurrentURL(),
+                'redirect_uri' => $this->getCurrentURL().'/provider/2',
             ];
 
             $params = Plugin::doHookFunction('sso:authorize_params', $params);
@@ -1192,7 +1172,7 @@ class PluginSinglesignonProvider extends CommonDBTM
         $params = [
             'client_id' => $this->getClientId(),
             'client_secret' => $this->getClientSecret(),
-            'redirect_uri' => $this->getCurrentURL(),
+            'redirect_uri' => $this->getCurrentURL().'/provider/2',
             'grant_type' => 'authorization_code',
             'code' => $this->_code,
         ];
