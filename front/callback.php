@@ -53,6 +53,7 @@ if (!$signon_provider->fields['is_active']) {
 
 $signon_provider->checkAuthorization();
 
+/*
 $test = PluginSinglesignonToolbox::getCallbackParameters('test');
 
 if ($test) {
@@ -67,6 +68,8 @@ if ($test) {
     Html::nullFooter();
     exit();
 }
+
+*/
 
 $user_id = Session::getLoginUserID();
 
