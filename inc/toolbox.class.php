@@ -41,7 +41,7 @@ class PluginSinglesignonToolbox
 
       $url = $CFG_GLPI['root_doc'] . '/plugins/singlesignon/front/callback.php';
 
-      $url .= "?provider=" . $id;
+      $url .= "/provider/" . $id;
 
       if (!empty($query)) {
          $_SESSION['redirect'] = $query['redirect'];
@@ -62,13 +62,32 @@ class PluginSinglesignonToolbox
 
    public static function getCallbackParameters($name = null)
    {
-      $data = $_GET;
-
-      if ($name !== null) {
-         return isset($data[$name]) ? $data[$name] : null;
+      $pathInfo = '';
+      $providerId = '';
+      
+      if (isset($_SERVER['REQUEST_URI'])) {
+         // Extrae el PATH_INFO de la REQUEST_URI
+         $scriptPath = '/plugins/singlesignon/front/callback.php';
+         $pathInfo = str_replace($scriptPath, '', $_SERVER['REQUEST_URI']);
       }
 
-      return $data;
+      // Limpia la PATH_INFO para evitar problemas con barras al principio o al final
+      $pathInfo = trim($pathInfo, '/');
+
+      // Procesa el PATH_INFO para extraer parámetros
+      $pathParts = explode('/', $pathInfo);
+
+      $provider = null;
+      $providerId = null;
+
+      if (count($pathParts) >= 2) {
+         if ($pathParts[0] === 'provider') {
+            $provider = $pathParts[0];
+            $providerId = isset($pathParts[1]) ? intval($pathParts[1]) : null;
+         }
+      }
+
+      return $providerId;
    }
 
    static public function startsWith($haystack, $needle)
