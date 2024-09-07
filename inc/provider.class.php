@@ -949,7 +949,8 @@ class PluginSinglesignonProvider extends CommonDBTM
 
     public function getProviderId(){
         $fields = $this->fields;
-        return $fields['id'] ? $fields['id'] : 0;
+        $providerId = $fields['id'] ? $fields['id'] : 0;
+        return 1;
     }
 
     public function getScope()
