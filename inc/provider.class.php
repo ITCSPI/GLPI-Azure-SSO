@@ -1178,7 +1178,7 @@ class PluginSinglesignonProvider extends CommonDBTM
         $params = [
             'client_id' => $this->getClientId(),
             'client_secret' => $this->getClientSecret(),
-            'redirect_uri' => $this->getCurrentURL(),
+            'redirect_uri' => $this->getCurrentURL().'?provider='.$this->getProviderId(),
             'grant_type' => 'authorization_code',
             'code' => $this->_code,
         ];
@@ -1196,7 +1196,7 @@ class PluginSinglesignonProvider extends CommonDBTM
         ]);
 
         if ($this->debug) {
-            print_r("\ngetAccessToken:\n");
+            print_r("\ngetAccessToken hola:\n");
         }
 
         try {
