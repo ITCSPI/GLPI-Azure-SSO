@@ -1124,7 +1124,7 @@ class PluginSinglesignonProvider extends CommonDBTM
                 'state' => $state,
                 'response_type' => 'code',
                 'approval_prompt' => 'auto',
-                'redirect_uri' => $this->getCurrentURL(),
+                'redirect_uri' => $this->getCurrentURL().'?provider='.$this->getProviderId(),
             ];
 
             $params = Plugin::doHookFunction('sso:authorize_params', $params);
@@ -1178,7 +1178,7 @@ class PluginSinglesignonProvider extends CommonDBTM
         $params = [
             'client_id' => $this->getClientId(),
             'client_secret' => $this->getClientSecret(),
-            'redirect_uri' => $this->getCurrentURL(),
+            'redirect_uri' => $this->getCurrentURL().'?provider='.$this->getProviderId(),
             'grant_type' => 'authorization_code',
             'code' => $this->_code,
         ];
