@@ -1196,7 +1196,7 @@ class PluginSinglesignonProvider extends CommonDBTM
         ]);
 
         if ($this->debug) {
-            print_r("\ngetAccessToken hola:\n");
+            //print_r("\ngetAccessToken:\n");
         }
 
         try {
@@ -1249,7 +1249,7 @@ class PluginSinglesignonProvider extends CommonDBTM
         ]);
 
         if ($this->debug) {
-            print_r("\ngetResourceOwner:\n");
+           // print_r("\ngetResourceOwner:\n");
         }
 
         try {

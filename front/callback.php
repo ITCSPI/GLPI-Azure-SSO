@@ -34,8 +34,8 @@ error_reporting(E_ALL);
 
 include '../../../inc/includes.php';
 
-//$provider_id = PluginSinglesignonToolbox::getCallbackParameters('provider');
-$provider_id = 1;
+$provider_id = PluginSinglesignonToolbox::getCallbackParameters('provider');
+//$provider_id = 1;
 
 if (!$provider_id) {
     Html::displayErrorAndDie(__sso('Provider not defined.'), false);
