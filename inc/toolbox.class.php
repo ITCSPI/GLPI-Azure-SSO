@@ -62,27 +62,10 @@ class PluginSinglesignonToolbox
 
    public static function getCallbackParameters($name = null)
    {
-      $pathInfo = '';
-      $provider = null;
-      $providerId = null;
+      $providerId = 0;
 
-      if (isset($_SERVER['REQUEST_URI'])) {
-         // Extrae el PATH_INFO de la REQUEST_URI
-         $scriptPath = '/plugins/singlesignon/front/callback.php';
-         $pathInfo = str_replace($scriptPath, '', $_SERVER['REQUEST_URI']);
-      }
-
-      // Limpia la PATH_INFO para evitar problemas con barras al principio o al final
-      $pathInfo = trim($pathInfo, '/');
-
-      // Procesa el PATH_INFO para extraer parámetros
-      $pathParts = explode('/', $pathInfo);
-
-      if (count($pathParts) >= 2) {
-         if ($pathParts[0] === 'provider') {
-            $provider = $pathParts[0];
-            $providerId = isset($pathParts[1]) ? intval($pathParts[1]) : null;
-         }
+      if (isset($_GET['provider'])) {
+         $providerId = $_GET['provider'];
       }
 
       return $providerId;
