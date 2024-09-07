@@ -1202,7 +1202,7 @@ class PluginSinglesignonProvider extends CommonDBTM
         try {
             $data = json_decode($content, true);
             if ($this->debug) {
-                print_r($data);
+                //print_r($data);
             }
             if (!isset($data['access_token'])) {
                 return false;
@@ -1210,6 +1210,7 @@ class PluginSinglesignonProvider extends CommonDBTM
             $this->_token = $data['access_token'];
         } catch (\Exception $ex) {
             if ($this->debug) {
+                print "hay error";
                 print_r($content);
             }
             return false;
@@ -1255,11 +1256,12 @@ class PluginSinglesignonProvider extends CommonDBTM
         try {
             $data = json_decode($content, true);
             if ($this->debug) {
-                print_r($data);
+                //print_r($data);
             }
             $this->_resource_owner = $data;
         } catch (\Exception $ex) {
             if ($this->debug) {
+                print "error 2";
                 print_r($content);
             }
             return false;
