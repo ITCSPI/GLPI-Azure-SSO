@@ -1196,13 +1196,13 @@ class PluginSinglesignonProvider extends CommonDBTM
         ]);
 
         if ($this->debug) {
-            //print_r("\ngetAccessToken:\n");
+            print_r("\ngetAccessToken:\n");
         }
 
         try {
             $data = json_decode($content, true);
             if ($this->debug) {
-                //print_r($data);
+                print_r($data);
             }
             if (!isset($data['access_token'])) {
                 return false;
@@ -1250,13 +1250,13 @@ class PluginSinglesignonProvider extends CommonDBTM
         ]);
 
         if ($this->debug) {
-           // print_r("\ngetResourceOwner:\n");
+           print_r("\ngetResourceOwner:\n");
         }
 
         try {
             $data = json_decode($content, true);
             if ($this->debug) {
-                //print_r($data);
+                print_r($data);
             }
             $this->_resource_owner = $data;
         } catch (\Exception $ex) {
